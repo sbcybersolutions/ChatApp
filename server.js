@@ -12,7 +12,13 @@ const jwt = require('jsonwebtoken'); // <--- ADD THIS
 
 const app = express();
 const server = http.createServer(app); // Create an HTTP server instance from our Express app
-const io = new socketIo.Server(server); // Attach Socket.IO to the HTTP server
+const io = new socketIo.Server(server, {
+    cors: {
+        origin: "https://SB-Chat-App.onrender.com", // <--- IMPORTANT: REPLACE THIS
+        methods: ["GET", "POST"],
+        credentials: true
+    }
+}); // Attach Socket.IO to the HTTP server
 
 // Middleware to parse JSON bodies (for future API routes if needed)
 app.use(express.json());
